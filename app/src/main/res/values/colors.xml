@@ -3,4 +3,35 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="bw_color_white">#FFFFFF</color>
+    <color name="bw_color_black">#303030</color>
+    <color name="bw_color_very_light_grey">#FFE0DFDF</color>
+    <color name="bw_color_light_gray">#d0d0d0</color>
+    <color name="bw_color_dark_red">#FF3300</color>
+    <color name="bw_color_red">#FF3333</color>
+    <color name="bw_color_dark_gray">#969595</color>
+    <color name="bw_color_darker_gray">#707070</color>
+    <color name="bw_color_white_semi_trans">#40FFFFFF</color>
+
+    <color name="bw_color_green">#8CC63F</color>
+    <color name="bw_color_blue">#33CCFF</color>
+
+    <color name="bw_color_yellow">#FFC20E</color>
+    <color name="bw_color_purple">#CC68BD</color>
+    <color name="bw_color_dark_green">#009F55</color>
+    <color name="bw_color_orange">#FAAD16</color>
+
+    <color name="graph_line_user_average">#90009F55</color>
+    <color name="graph_line_township_average">#90CC68BD</color>
+
+    <color name="gal_color_pale_green">#00b300</color>
+    <color name="gal_color_amber">#FFC200</color>
+    <color name="golden">#DAA520</color>
+
+    <color name="transparent">#00000000</color>
+    <color name="textColorList">#b5b4b4</color>
+    <color name="translucentToolbar">#20607D8B</color>
+
+    <color name = "reading_list_background_color">#FFF5B09F</color>
 </resources>
