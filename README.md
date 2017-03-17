@@ -1,2 +1,2 @@
 # IPLApp
-This application is about the, schedules, tables of the upcoming IPL (Indian Premier League) 2017
+This application is about the schedules of upcoming IPL (Indian Premier League) 2017 matches.
