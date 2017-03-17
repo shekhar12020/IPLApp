@@ -1,7 +1,9 @@
-package com.shekhar.app.ipl;
+package com.shekhar.app.ipl.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.shekhar.app.ipl.R;
 
 public class MainActivity extends AppCompatActivity {
 
