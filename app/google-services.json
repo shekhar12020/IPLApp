@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "463166569837",
+    "firebase_url": "https://iplapp-ea2a5.firebaseio.com",
+    "project_id": "iplapp-ea2a5",
+    "storage_bucket": "iplapp-ea2a5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463166569837:android:1514d1373a557fc2",
+        "android_client_info": {
+          "package_name": "com.shekhar.app.ipl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "463166569837-9cmg58qlt7mnoc1lcrtt6r1sip2brs5o.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.shekhar.app.ipl",
+            "certificate_hash": "f3b01d6bf5118f94c92ef0486239e1b5e1db3038"
+          }
+        },
+        {
+          "client_id": "463166569837-f00ui2t1ekmhc2jsasp68uelvuukis1a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9xUTKfYlM_4MyQ3YnhO4Ek5lu6pJlYCk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "463166569837-f00ui2t1ekmhc2jsasp68uelvuukis1a.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
