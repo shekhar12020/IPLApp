@@ -1,8 +1,11 @@
 package com.shekhar.app.ipl.activity;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -10,6 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -21,17 +25,23 @@ import com.shekhar.app.ipl.adapter.TabAdapter;
 import com.shekhar.app.ipl.fragment.HomeFragment;
 import com.shekhar.app.ipl.fragment.MatchScheduleFragment;
 import com.shekhar.app.ipl.fragment.TeamListFragment;
+import com.shekhar.app.ipl.global.GlobalData;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Map;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class LandingActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private CircleImageView profilePhoto;
+    private TextView profileName;
+    private TextView profileEmail;
     private ViewPager viewPager;
     private TabLayout tabLayout;
 
@@ -58,12 +68,23 @@ public class LandingActivity extends BaseActivity
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
                 String appTitle = "";
+                String statusText = "";
+                boolean statusDisplay;
 
                 Map<String, String> value = (Map<String, String>) dataSnapshot.getValue();
                 JSONObject jsonObject = new JSONObject(value);
                 try {
                     appTitle = jsonObject.getString("home_screen_title");
+                    statusText = jsonObject.getString("status_text");
+                    statusDisplay = jsonObject.getBoolean("status_display");
+
+                    Intent i = new Intent("updateStatus");
+                    i.putExtra("status_display", statusDisplay);
+                    i.putExtra("status_text", statusText);
+                    LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(i);
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -81,7 +102,37 @@ public class LandingActivity extends BaseActivity
         tabLayout = (TabLayout) findViewById(R.id.tabs);
 
         setupViewPager();
+        loadUserData();
+
+        profilePhoto = (CircleImageView) navigationView.getHeaderView(0).findViewById(R.id.profilePhoto);
+        profileName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.profileName);
+        profileEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.profileEmail);
+
+        setNavProfileInfo();
     }
+
+    public void loadUserData() {
+
+        SharedPreferences UserInfo = this.getSharedPreferences("UserInfo", MODE_PRIVATE);
+        GlobalData.getInstance().setUserId(UserInfo.getString("id", ""));
+        GlobalData.getInstance().setProfileName(UserInfo.getString("username", ""));
+        GlobalData.getInstance().setProfilePhoto(UserInfo.getString("photoUrl", ""));
+        GlobalData.getInstance().setProfileEmail(UserInfo.getString("email", ""));
+
+    }
+
+    private void setNavProfileInfo() {
+        if (GlobalData.getInstance().getProfilePhoto() != null
+                && !GlobalData.getInstance().getProfilePhoto().equalsIgnoreCase("")) {
+            Picasso.with(LandingActivity.this)
+                    .load(GlobalData.getInstance().getProfilePhoto())
+                    .noFade()
+                    .into(profilePhoto);
+        }
+        profileName.setText(GlobalData.getInstance().getProfileName());
+        profileEmail.setText(GlobalData.getInstance().getProfileEmail());
+    }
+
 
     @Override
     protected int getStatusBarColor() {
@@ -100,43 +151,37 @@ public class LandingActivity extends BaseActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.landing_acivity, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_match_result) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_team) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_point_table) {
+
+        } else if (id == R.id.nav_statistics) {
 
         } else if (id == R.id.nav_share) {
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_rate_this_app) {
 
         }
 
@@ -151,6 +196,7 @@ public class LandingActivity extends BaseActivity
         tabAdapter.addFragment(new HomeFragment(), "Home");
         tabAdapter.addFragment(new MatchScheduleFragment(), "Schedules");
         tabAdapter.addFragment(new TeamListFragment(), "Teams");
+
         viewPager.setAdapter(tabAdapter);
         viewPager.setCurrentItem(0);
 

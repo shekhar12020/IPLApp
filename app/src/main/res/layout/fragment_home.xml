@@ -7,6 +7,7 @@
     android:orientation="vertical">
 
     <android.support.v7.widget.CardView
+        android:id="@+id/statusCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -26,15 +27,15 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                android:background="@color/bw_color_white"
                 android:gravity="center_horizontal"
                 android:paddingBottom="2dp"
                 android:paddingEnd="4dp"
-                android:paddingStart="4dp"
+                android:paddingStart="8dp"
                 android:paddingTop="2dp"
-                android:text="Current Status"
-                android:textColor="@color/colorAccent"
-                android:textSize="10sp" />
+                android:text="LIVE"
+                android:textColor="@color/bw_color_yellow"
+                android:textSize="12sp"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/scheduleDate"
@@ -100,7 +101,97 @@
                 android:text="SRH v/s RCB"
                 android:textColor="@color/bw_color_white"
                 android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/predictionCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/statusCard"
+        android:layout_margin="8dp"
+        android:orientation="vertical"
+        app:cardCornerRadius="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bw_color_darker_gray"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/predictItTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:gravity="center_horizontal"
+                android:padding="8dp"
+                android:text="PREDICT IT"
+                android:textColor="@color/bw_color_white"
+                android:textSize="28sp"
                 android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/comingSoon"
+                android:layout_below="@+id/predictItTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:gravity="center_horizontal"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:text="A game where your prediction skills \n on IPL teams get to play"
+                android:textColor="@color/bw_color_white"
+                android:textSize="14sp" />
+
+            <com.google.android.gms.common.SignInButton
+                android:id="@+id/btnGoogleSignIn"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/comingSoon"
+                android:layout_marginEnd="25dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:visibility="visible" />
+
+            <TextView
+                android:id="@+id/btnMakePrediction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/comingSoon"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="25dp"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:padding="12dp"
+                android:textStyle="bold"
+                android:text="Predict Now"
+                android:textColor="@color/bw_color_white"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/authenticationMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/btnGoogleSignIn"
+                android:gravity="center_horizontal"
+                android:paddingBottom="8dp"
+                android:paddingEnd="8dp"
+                android:paddingStart="8dp"
+                android:paddingTop="4dp"
+                android:text="Authentication Required to Play"
+                android:textColor="@color/bw_color_white"
+                android:textSize="14sp"
+                android:visibility="visible" />
 
         </RelativeLayout>
 

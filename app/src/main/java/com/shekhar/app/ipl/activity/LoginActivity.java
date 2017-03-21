@@ -83,15 +83,11 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.OnCon
     private void signOut() {
         mAuth.signOut();
 
-        // Google sign out
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(@NonNull Status status) {
-//                        updateUI(null);
-                        Intent i = new Intent(LoginActivity.this, LandingActivity.class);
-                        startActivity(i);
-                        finish();
+                        updateUI(null);
                     }
                 });
     }
@@ -99,12 +95,11 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.OnCon
     private void revokeAccess() {
         mAuth.signOut();
 
-        // Google revoke access
         Auth.GoogleSignInApi.revokeAccess(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(@NonNull Status status) {
-//                        updateUI(null);
+                        updateUI(null);
                     }
                 });
     }

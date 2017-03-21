@@ -22,6 +22,43 @@ public class GlobalData extends Application {
     //Application UI data
     public static GlobalData mGlobalData;
 
+    private String userId;
+    private String profileName;
+    private String profileEmail;
+    private String profilePhoto;
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getProfileName() {
+        return profileName;
+    }
+
+    public void setProfileName(String profileName) {
+        this.profileName = profileName;
+    }
+
+    public String getProfileEmail() {
+        return profileEmail;
+    }
+
+    public void setProfileEmail(String profileEmail) {
+        this.profileEmail = profileEmail;
+    }
+
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
+
     public static GlobalData getInstance() {
 
         if (mGlobalData == null) {
