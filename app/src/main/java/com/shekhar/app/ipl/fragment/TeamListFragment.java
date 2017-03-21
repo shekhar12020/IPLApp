@@ -18,7 +18,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shekhar.app.ipl.R;
 import com.shekhar.app.ipl.adapter.TeamListAdapter;
-import com.shekhar.app.ipl.model.Team;
+import com.shekhar.app.ipl.model.match.Team;
 import com.shekhar.app.ipl.util.DebugLog;
 
 import org.json.JSONException;

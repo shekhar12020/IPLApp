@@ -17,8 +17,7 @@
             android:id="@+id/teamPhoto"
             android:layout_width="85dp"
             android:layout_height="95dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/kings" />
+            android:scaleType="centerCrop" />
 
         <TextView
             android:id="@+id/teamName"

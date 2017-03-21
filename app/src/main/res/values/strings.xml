@@ -3,4 +3,11 @@
 
     <string name="error_no_data_found">No Match Scheduled.</string>
     <string name="ok_button">OK</string>
+
+    <string name="error_enter_mandatory">All fields are mandatory.</string>
+    <string name="error_username">Please enter username.</string>
+    <string name="error_enter_password">Please enter password.</string>
+
+    <string name="error_no_internet_connection">Please check your internet connection.</string>
+
 </resources>

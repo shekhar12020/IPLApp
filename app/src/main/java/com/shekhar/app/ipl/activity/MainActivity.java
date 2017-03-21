@@ -12,6 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shekhar.app.ipl.R;
 import com.shekhar.app.ipl.adapter.TabAdapter;
+import com.shekhar.app.ipl.fragment.HomeFragment;
 import com.shekhar.app.ipl.fragment.MatchScheduleFragment;
 import com.shekhar.app.ipl.fragment.TeamListFragment;
 
@@ -73,6 +74,7 @@ public class MainActivity extends BaseActivity {
     private void setupViewPager() {
 
         TabAdapter tabAdapter = new TabAdapter(getSupportFragmentManager(), this);
+        tabAdapter.addFragment(new HomeFragment(), "Home");
         tabAdapter.addFragment(new MatchScheduleFragment(), "Schedules");
         tabAdapter.addFragment(new TeamListFragment(), "Teams");
         viewPager.setAdapter(tabAdapter);

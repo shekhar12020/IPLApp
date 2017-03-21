@@ -1,4 +1,4 @@
-package com.shekhar.app.ipl.model;
+package com.shekhar.app.ipl.model.match;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shekhar.app.ipl.R;
-import com.shekhar.app.ipl.model.Team;
+import com.shekhar.app.ipl.model.match.Team;
 import com.shekhar.app.ipl.view.TeamListItemViewHolder;
 import com.squareup.picasso.Picasso;
 

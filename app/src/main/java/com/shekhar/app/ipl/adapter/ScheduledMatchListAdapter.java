@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shekhar.app.ipl.R;
-import com.shekhar.app.ipl.model.ScheduledMatch;
+import com.shekhar.app.ipl.model.match.ScheduledMatch;
 import com.shekhar.app.ipl.view.ScheduledMatchListItemViewHolder;
 
 import java.util.ArrayList;

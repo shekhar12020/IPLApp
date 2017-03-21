@@ -16,7 +16,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shekhar.app.ipl.R;
 import com.shekhar.app.ipl.adapter.ScheduledMatchListAdapter;
-import com.shekhar.app.ipl.model.ScheduledMatch;
+import com.shekhar.app.ipl.model.match.ScheduledMatch;
 import com.shekhar.app.ipl.util.DebugLog;
 
 import org.json.JSONException;
