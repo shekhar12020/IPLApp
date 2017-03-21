@@ -46,9 +46,9 @@ public class SplashActivity extends BaseActivity {
 
                 Intent i;
                 if (isLogin) {
-                    i = new Intent(SplashActivity.this, MainActivity.class);
+                    i = new Intent(SplashActivity.this, LandingActivity.class);
                 } else {
-                    i = new Intent(SplashActivity.this, MainActivity.class);
+                    i = new Intent(SplashActivity.this, LandingActivity.class);
                 }
                 startActivity(i);
                 finish();

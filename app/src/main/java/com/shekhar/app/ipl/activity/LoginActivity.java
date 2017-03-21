@@ -89,7 +89,7 @@ public class LoginActivity extends BaseActivity implements GoogleApiClient.OnCon
                     @Override
                     public void onResult(@NonNull Status status) {
 //                        updateUI(null);
-                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                        Intent i = new Intent(LoginActivity.this, LandingActivity.class);
                         startActivity(i);
                         finish();
                     }
