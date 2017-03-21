@@ -63,10 +63,13 @@ public class MatchScheduleFragment extends BaseFragment {
                     JSONObject jsonObject = new JSONObject(value);
                     try {
                         ScheduledMatch scheduledMatch = new ScheduledMatch();
+                        scheduledMatch.setMatch_id(jsonObject.get("match_id").toString());
                         scheduledMatch.setTime(jsonObject.get("time").toString());
                         scheduledMatch.setDate(jsonObject.get("date").toString());
                         scheduledMatch.setMatch(jsonObject.get("match").toString());
                         scheduledMatch.setVanue(jsonObject.get("venue").toString());
+                        scheduledMatch.setStatus(jsonObject.get("status").toString());
+                        scheduledMatch.setWinner(jsonObject.get("winner").toString());
                         scheduledMatches.add(scheduledMatch);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -79,7 +82,6 @@ public class MatchScheduleFragment extends BaseFragment {
 
             @Override
             public void onCancelled(DatabaseError error) {
-                // Failed to read value
                 DebugLog.d("Failed to read value." + error.toException());
             }
         });

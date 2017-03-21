@@ -14,11 +14,19 @@ public class ScheduledMatch implements Parcelable {
     private String match;
     private String vanue;
 
+    private String status = "";
+    private String winner = "";
+
+    private String match_id;
+
     public ScheduledMatch(Parcel in) {
         date = in.readString();
         time = in.readString();
         match = in.readString();
         vanue = in.readString();
+        status = in.readString();
+        winner = in.readString();
+        match_id = in.readString();
     }
 
     public ScheduledMatch() {
@@ -31,6 +39,9 @@ public class ScheduledMatch implements Parcelable {
         dest.writeString(time);
         dest.writeString(match);
         dest.writeString(vanue);
+        dest.writeString(status);
+        dest.writeString(winner);
+        dest.writeString(match_id);
     }
 
     @Override
@@ -49,6 +60,30 @@ public class ScheduledMatch implements Parcelable {
             return new ScheduledMatch[size];
         }
     };
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getWinner() {
+        return winner;
+    }
+
+    public void setWinner(String winner) {
+        this.winner = winner;
+    }
+
+    public String getMatch_id() {
+        return match_id;
+    }
+
+    public void setMatch_id(String match_id) {
+        this.match_id = match_id;
+    }
 
     public String getDate() {
         return date;

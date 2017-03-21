@@ -13,12 +13,14 @@ import com.shekhar.app.ipl.R;
 public class ScheduledMatchListItemViewHolder extends RecyclerView.ViewHolder {
     public TextView matchVenue;
     public TextView scheduleDate;
+    public TextView daysRemaining;
     public TextView matchBetween;
 
     public ScheduledMatchListItemViewHolder(View itemView) {
         super(itemView);
         matchVenue = (TextView) itemView.findViewById(R.id.matchVenue);
         scheduleDate = (TextView) itemView.findViewById(R.id.scheduleDate);
+        daysRemaining = (TextView) itemView.findViewById(R.id.daysRemaining);
         matchBetween = (TextView) itemView.findViewById(R.id.matchBetween);
     }
 }
