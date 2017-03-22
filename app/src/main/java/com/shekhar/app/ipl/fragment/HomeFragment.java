@@ -5,10 +5,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.net.ParseException;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,8 +39,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.shekhar.app.ipl.R;
+import com.shekhar.app.ipl.adapter.NewFeedListAdapter;
+import com.shekhar.app.ipl.feeds.RssItem;
+import com.shekhar.app.ipl.feeds.RssReader;
 import com.shekhar.app.ipl.global.GlobalData;
 import com.shekhar.app.ipl.util.DebugLog;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import static com.google.android.gms.internal.zzs.TAG;
 
@@ -47,6 +62,8 @@ public class HomeFragment extends BaseFragment implements GoogleApiClient.OnConn
 
     private View rootView;
     private RelativeLayout parentLayout;
+    private RecyclerView newsFeedList;
+    private CardView newsLabelCard;
 
     private SignInButton btnGoogleSignIn;
     private TextView btnMakePrediction;
@@ -59,6 +76,8 @@ public class HomeFragment extends BaseFragment implements GoogleApiClient.OnConn
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private static final int RC_SIGN_IN = 9001;
+
+    private String finalUrl = "http://www.espncricinfo.com/rss/content/story/feeds/1078425.xml";
 
     @Override
     public void onAttach(Context context) {
@@ -102,6 +121,28 @@ public class HomeFragment extends BaseFragment implements GoogleApiClient.OnConn
             }
         };
 
+        new DownloadNewsTask().execute(finalUrl);
+    }
+
+    private class DownloadNewsTask extends AsyncTask<String, Void, ArrayList<RssItem>> {
+
+        protected ArrayList<RssItem> doInBackground(String... urls) {
+            ArrayList<RssItem> RssItems = new ArrayList<>();
+            try {
+                RssReader rssReader = new RssReader(finalUrl);
+                RssItems = rssReader.getItems();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return RssItems;
+        }
+
+        protected void onPostExecute(ArrayList<RssItem> result) {
+            LinearLayoutManager llm = new LinearLayoutManager(getContext());
+            newsFeedList.setLayoutManager(llm);
+            newsFeedList.setAdapter(new NewFeedListAdapter(getActivity(), result));
+            newsLabelCard.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -115,8 +156,13 @@ public class HomeFragment extends BaseFragment implements GoogleApiClient.OnConn
         btnMakePrediction = (TextView) rootView.findViewById(R.id.btnMakePrediction);
         authenticationMessage = (TextView) rootView.findViewById(R.id.authenticationMessage);
         status = (TextView) rootView.findViewById(R.id.status);
+        newsLabelCard = (CardView) rootView.findViewById(R.id.newsLabelCard);
+
+        TextView daysRemaining = (TextView) rootView.findViewById(R.id.daysRemaining);
+        daysRemaining.setText(daysRemaining(dateFormat("April 5, 2017")) + " Days Remaining");
 
         btnGoogleSignIn = (SignInButton) rootView.findViewById(R.id.btnGoogleSignIn);
+        newsFeedList = (RecyclerView) rootView.findViewById(R.id.newsFeedList);
 
         btnGoogleSignIn.setSize(SignInButton.SIZE_WIDE);
         btnGoogleSignIn.setColorScheme(SignInButton.COLOR_DARK);
@@ -262,7 +308,53 @@ public class HomeFragment extends BaseFragment implements GoogleApiClient.OnConn
             status.setVisibility(View.GONE);
             status.setText("");
         }
+    }
 
+    private int daysRemaining(String scheduleDate) {
+
+        int diffInDays = 0;
+        SimpleDateFormat dfDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        Date d;
+        Date d1;
+        try {
+            d1 = dfDate.parse(scheduleDate);
+            d = dfDate.parse(getCurrentDate("dd/MM/yyyy"));
+            diffInDays = (int) ((d1.getTime() - d.getTime()) / (1000 * 60 * 60 * 24));
+            DebugLog.d("diffInDays : " + diffInDays);
+
+        } catch (java.text.ParseException e) {
+            e.printStackTrace();
+        }
+        return diffInDays;
+    }
+
+    public static String dateFormat(String dateInput) {
+        String str2 = null;
+
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd,yyyy", Locale.US);
+        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        Date date1;
+
+        try {
+            date1 = formatter.parse(dateInput);
+            str2 = (formatter1.format(date1));
+        } catch (ParseException | java.text.ParseException e) {
+            e.printStackTrace();
+        }
+
+        return str2;
+    }
+
+    private String getCurrentDate(String outputFormat) {
+
+        String timezoneName = TimeZone.getDefault().getDisplayName();
+
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat(outputFormat, Locale.getDefault());
+        df.setTimeZone(TimeZone.getTimeZone(timezoneName));
+        String formattedDate = df.format(c.getTime());
+
+        return formattedDate;
     }
 
 }
