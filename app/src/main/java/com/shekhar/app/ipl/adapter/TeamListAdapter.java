@@ -1,12 +1,14 @@
 package com.shekhar.app.ipl.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.shekhar.app.ipl.R;
+import com.shekhar.app.ipl.activity.TeamDetailsActivity;
 import com.shekhar.app.ipl.model.match.Team;
 import com.shekhar.app.ipl.view.TeamListItemViewHolder;
 import com.squareup.picasso.Picasso;
@@ -36,7 +38,7 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListItemViewHolder
 
     @Override
     public void onBindViewHolder(TeamListItemViewHolder holder, int position) {
-        Team team = visitorTables.get(position);
+        final Team team = visitorTables.get(position);
 
         holder.teamName.setText(team.getTeam_name());
         holder.teamOwner.setText(team.getOwner());
@@ -60,6 +62,15 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListItemViewHolder
                     .error(R.drawable.loading_border)
                     .into(holder.teamPhoto);
         }
+
+        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, TeamDetailsActivity.class);
+                intent.putExtra("teamDetails", team);
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override
