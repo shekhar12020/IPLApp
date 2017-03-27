@@ -49,7 +49,7 @@ public class MatchScheduleFragment extends BaseFragment {
         bindViews();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("matches");
+        DatabaseReference myRef = database.getReference("ipl/matches");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override

@@ -52,7 +52,7 @@ public class TeamListFragment extends BaseFragment {
         bindViews();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("teams");
+        DatabaseReference myRef = database.getReference("ipl/teams");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
