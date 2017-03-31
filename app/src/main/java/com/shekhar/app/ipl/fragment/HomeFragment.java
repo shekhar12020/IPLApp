@@ -138,10 +138,15 @@ public class HomeFragment extends BaseFragment implements GoogleApiClient.OnConn
         }
 
         protected void onPostExecute(ArrayList<RssItem> result) {
-            LinearLayoutManager llm = new LinearLayoutManager(getContext());
-            newsFeedList.setLayoutManager(llm);
-            newsFeedList.setAdapter(new NewFeedListAdapter(getActivity(), result));
-            newsLabelCard.setVisibility(View.VISIBLE);
+            if (result != null && result.size() > 0) {
+                newsLabelCard.setVisibility(View.VISIBLE);
+                LinearLayoutManager llm = new LinearLayoutManager(getContext());
+                newsFeedList.setLayoutManager(llm);
+                newsFeedList.setAdapter(new NewFeedListAdapter(getActivity(), result));
+                newsLabelCard.setVisibility(View.VISIBLE);
+            } else {
+                newsLabelCard.setVisibility(View.GONE);
+            }
         }
     }
 

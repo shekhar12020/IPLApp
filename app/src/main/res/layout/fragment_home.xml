@@ -11,8 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:orientation="vertical"
-        app:cardCornerRadius="5dp">
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -103,8 +102,7 @@
         android:layout_below="@+id/statusCard"
         android:layout_margin="8dp"
         android:orientation="vertical"
-        android:visibility="gone"
-        app:cardCornerRadius="5dp">
+        android:visibility="gone">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -190,17 +188,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/predictionCard"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
-        android:visibility="visible"
-        app:cardCornerRadius="5dp">
+        android:visibility="gone">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/bw_color_darker_gray"
+            android:background="@color/colorAccent"
             android:orientation="vertical">
 
             <TextView
@@ -220,8 +217,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/newsFeedList"
         android:layout_width="match_parent"
-        android:paddingBottom="8dp"
         android:layout_height="match_parent"
-        android:layout_below="@+id/newsLabelCard" />
+        android:layout_below="@+id/newsLabelCard"
+        android:paddingBottom="8dp" />
 
 </RelativeLayout>

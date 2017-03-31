@@ -1,30 +1,28 @@
 package com.shekhar.app.ipl.adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.shekhar.app.ipl.R;
-import com.shekhar.app.ipl.activity.TeamDetailsActivity;
-import com.shekhar.app.ipl.model.team.Team;
+import com.shekhar.app.ipl.model.team.Squad;
 import com.shekhar.app.ipl.view.TeamListItemViewHolder;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 /**
- * Created by shekhar on 17/03/17.
+ * Created by shekhar on 29/03/17.
  */
 
-public class TeamListAdapter extends RecyclerView.Adapter<TeamListItemViewHolder> {
+public class TeamSquadAdapter extends RecyclerView.Adapter<TeamListItemViewHolder> {
 
     private Context mContext;
-    private ArrayList<Team> visitorTables;
+    private ArrayList<Squad> visitorTables;
 
-    public TeamListAdapter(Context mContext, ArrayList<Team> visitorTables) {
+    public TeamSquadAdapter(Context mContext, ArrayList<Squad> visitorTables) {
         this.mContext = mContext;
         this.visitorTables = visitorTables;
 
@@ -38,16 +36,16 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListItemViewHolder
 
     @Override
     public void onBindViewHolder(TeamListItemViewHolder holder, int position) {
-        final Team team = visitorTables.get(position);
+        final Squad squad = visitorTables.get(position);
 
-        holder.teamName.setText(team.getTeam_name());
-        holder.teamOwner.setText(team.getOwner());
-        holder.teamCaptain.setText(team.getCaptain() + " (Captain)");
-        holder.extra.setText(team.getHome_ground());
+        holder.teamName.setText(squad.getpName());
+        holder.teamOwner.setText(squad.getpType() + " (" + squad.getCountry() + ")");
+        holder.teamCaptain.setText("Bating : " + squad.getBats());
+        holder.extra.setText("Bowling : " + squad.getBowls());
 
-        if (!team.getImage_url().equalsIgnoreCase("")) {
+        if (!squad.getpImg().equalsIgnoreCase("")) {
             Picasso.with(mContext)
-                    .load(team.getImage_url())
+                    .load(squad.getpImg())
                     .placeholder(R.drawable.loading_border)
                     .error(R.drawable.loading_border)
                     .into(holder.teamPhoto);
@@ -58,15 +56,6 @@ public class TeamListAdapter extends RecyclerView.Adapter<TeamListItemViewHolder
                     .error(R.drawable.loading_border)
                     .into(holder.teamPhoto);
         }
-
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, TeamDetailsActivity.class);
-                intent.putExtra("teamDetails", team);
-                mContext.startActivity(intent);
-            }
-        });
     }
 
     @Override

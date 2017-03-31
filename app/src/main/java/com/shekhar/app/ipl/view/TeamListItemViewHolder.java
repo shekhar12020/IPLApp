@@ -17,6 +17,7 @@ public class TeamListItemViewHolder extends RecyclerView.ViewHolder {
     public TextView teamName;
     public TextView teamOwner;
     public TextView teamCaptain;
+    public TextView extra;
     public ImageView teamPhoto;
     public RelativeLayout parentLayout;
 
@@ -25,6 +26,7 @@ public class TeamListItemViewHolder extends RecyclerView.ViewHolder {
         teamName = (TextView) itemView.findViewById(R.id.teamName);
         teamOwner = (TextView) itemView.findViewById(R.id.teamOwner);
         teamCaptain = (TextView) itemView.findViewById(R.id.teamCaptain);
+        extra = (TextView) itemView.findViewById(R.id.extra);
         teamPhoto = (ImageView) itemView.findViewById(R.id.teamPhoto);
 
         parentLayout = (RelativeLayout) itemView.findViewById(R.id.parentLayout);

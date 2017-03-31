@@ -25,12 +25,12 @@ import java.util.TimeZone;
  * Created by shekhar on 17/03/17.
  */
 
-public class ScheduledMatchListAdapter extends RecyclerView.Adapter<ScheduledMatchListItemViewHolder> {
+public class TeamMatchListAdapter extends RecyclerView.Adapter<ScheduledMatchListItemViewHolder> {
 
     private Context mContext;
     private ArrayList<ScheduledMatch> visitorTables;
 
-    public ScheduledMatchListAdapter(Context mContext, ArrayList<ScheduledMatch> visitorTables) {
+    public TeamMatchListAdapter(Context mContext, ArrayList<ScheduledMatch> visitorTables) {
         this.mContext = mContext;
         this.visitorTables = visitorTables;
     }
@@ -71,7 +71,6 @@ public class ScheduledMatchListAdapter extends RecyclerView.Adapter<ScheduledMat
             holder.daysRemaining.setText("LIVE");
             holder.daysRemaining.setTypeface(Typeface.DEFAULT, Typeface.BOLD_ITALIC);
         }
-
     }
 
     @Override

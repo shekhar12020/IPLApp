@@ -14,17 +14,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.shekhar.app.ipl.R;
 import com.shekhar.app.ipl.adapter.TeamListAdapter;
-import com.shekhar.app.ipl.model.match.Team;
+import com.shekhar.app.ipl.model.team.Team;
 import com.shekhar.app.ipl.util.DebugLog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -66,14 +63,22 @@ public class TeamListFragment extends BaseFragment {
                     JSONObject jsonObject = new JSONObject(value);
                     try {
                         Team team = new Team();
+
+                        team.setTeam_id(jsonObject.get("team_id").toString());
                         team.setTeam_name(jsonObject.get("team_name").toString());
+                        team.setShort_name(jsonObject.get("short_name").toString());
+
                         team.setOwner(jsonObject.get("owner").toString());
+                        team.setCoach(jsonObject.get("coach").toString());
+                        team.setCaptain(jsonObject.get("captain").toString());
+
+                        team.setHome_ground(jsonObject.get("home_ground").toString());
                         team.setImage_url(jsonObject.get("image_url").toString());
 
-                        Type listType = new TypeToken<ArrayList<String>>() {}.getType();
-                        ArrayList<String> memberList = new Gson().fromJson(jsonObject.get("team_members").toString(), listType);
+//                        Type listType = new TypeToken<ArrayList<String>>() {}.getType();
+//                        ArrayList<String> memberList = new Gson().fromJson(jsonObject.get("team_members").toString(), listType);
+//                        team.setTeam_members(memberList);
 
-                        team.setTeam_members(memberList);
                         teams.add(team);
                     } catch (JSONException e) {
                         e.printStackTrace();

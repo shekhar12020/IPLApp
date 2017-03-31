@@ -15,8 +15,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.shekhar.app.ipl.R;
-import com.shekhar.app.ipl.adapter.ScheduledMatchListAdapter;
-import com.shekhar.app.ipl.model.match.ScheduledMatch;
+import com.shekhar.app.ipl.adapter.TeamSquadAdapter;
+import com.shekhar.app.ipl.model.team.Squad;
+import com.shekhar.app.ipl.model.team.Team;
 import com.shekhar.app.ipl.util.DebugLog;
 
 import org.json.JSONException;
@@ -26,67 +27,71 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * Created by shekhar on 17/03/17.
+ * Created by shekhar on 17/13/17.
  */
 
-public class MatchScheduleFragment extends BaseFragment {
+public class TeamSquadListFragment extends BaseFragment {
 
     private View rootView;
 
-    private RecyclerView matchScheduleList;
+    private RecyclerView squadList;
     private RelativeLayout parentLayout;
+    private Team team;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_match_schedule, container, false);
+        rootView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_team_list, container, false);
         return rootView;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            team = bundle.getParcelable("TeamData");
+        }
+
         bindViews();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("ipl/schedules");
+        DatabaseReference myRef = database.getReference("ipl/team_squads/" + team.getShort_name() + "/players");
 
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                ArrayList<ScheduledMatch> values = (ArrayList<ScheduledMatch>) dataSnapshot.getValue();
+                ArrayList<Squad> values = (ArrayList<Squad>) dataSnapshot.getValue();
 
-                ArrayList<ScheduledMatch> scheduledMatches = new ArrayList<>();
+                ArrayList<Squad> squads = new ArrayList<>();
                 for (int i = 0; i < values.size(); i++) {
                     Map<String, String> value = (Map<String, String>) values.get(i);
                     JSONObject jsonObject = new JSONObject(value);
                     try {
-                        ScheduledMatch scheduledMatch = new ScheduledMatch();
-                        scheduledMatch.setMatch_id(jsonObject.get("match_id").toString());
-                        scheduledMatch.setMatch(jsonObject.get("teams").toString());
-                        scheduledMatch.setVanue(jsonObject.get("venue").toString());
-                        scheduledMatch.setStatus(jsonObject.get("status").toString());
+                        Squad squad = new Squad();
+                        squad.setpName(jsonObject.get("pName").toString().trim());
+                        squad.setpType(jsonObject.get("pType").toString().trim());
+                        squad.setpImg(jsonObject.get("pImg").toString().trim());
 
-                        scheduledMatch.setAbvteam1(jsonObject.get("abvteam1").toString());
-                        scheduledMatch.setAbvteam2(jsonObject.get("abvteam2").toString());
-                        scheduledMatch.setTeam1Img(jsonObject.get("team1Img").toString());
-                        scheduledMatch.setTeam2Img(jsonObject.get("team2Img").toString());
+                        squad.setCountry(jsonObject.get("country").toString().trim());
+                        squad.setBats(jsonObject.get("bats").toString().trim());
+                        squad.setBowls(jsonObject.get("bowls").toString().trim());
 
-                        scheduledMatch.setTime(jsonObject.get("time").toString());
-                        scheduledMatch.setDate(jsonObject.get("date").toString());
-                        scheduledMatches.add(scheduledMatch);
+                        squads.add(squad);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
                 LinearLayoutManager llm = new LinearLayoutManager(getContext());
-                matchScheduleList.setLayoutManager(llm);
-                matchScheduleList.setAdapter(new ScheduledMatchListAdapter(getActivity(), scheduledMatches));
+                squadList.setLayoutManager(llm);
+                squadList.setAdapter(new TeamSquadAdapter(getActivity(), squads));
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
+                // Failed to read value
                 DebugLog.d("Failed to read value." + error.toException());
             }
         });
@@ -98,7 +103,7 @@ public class MatchScheduleFragment extends BaseFragment {
     }
 
     private void bindViews() {
-        matchScheduleList = (RecyclerView) rootView.findViewById(R.id.matchScheduleList);
+        squadList = (RecyclerView) rootView.findViewById(R.id.teamList);
         parentLayout = (RelativeLayout) rootView.findViewById(R.id.parentLayout);
     }
 
