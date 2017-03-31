@@ -15,7 +15,7 @@
             android:title="Point Table" />
         <item
             android:id="@+id/nav_statistics"
-            android:title="Statistics" />
+            android:title="IPL Updates" />
 
         <item
             android:id="@+id/nav_share"

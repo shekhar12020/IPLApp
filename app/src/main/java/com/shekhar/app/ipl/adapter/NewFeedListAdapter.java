@@ -1,12 +1,14 @@
 package com.shekhar.app.ipl.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.shekhar.app.ipl.R;
+import com.shekhar.app.ipl.activity.NewsFeedDetailActivity;
 import com.shekhar.app.ipl.feeds.RssItem;
 import com.shekhar.app.ipl.view.NewsListItemViewHolder;
 
@@ -35,11 +37,20 @@ public class NewFeedListAdapter extends RecyclerView.Adapter<NewsListItemViewHol
 
     @Override
     public void onBindViewHolder(NewsListItemViewHolder holder, int position) {
-        RssItem team = visitorTables.get(position);
+        final RssItem team = visitorTables.get(position);
 
         holder.title.setText(team.getTitle());
         holder.description.setText(team.getDescription());
         holder.date.setText(team.getPubDate());
+
+        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, NewsFeedDetailActivity.class);
+                intent.putExtra("url", team.getLink());
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     @Override

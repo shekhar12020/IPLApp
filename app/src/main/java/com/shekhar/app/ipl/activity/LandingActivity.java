@@ -169,6 +169,7 @@ public class LandingActivity extends BaseActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
 
+        Intent intent = null;
         int id = item.getItemId();
 
         if (id == R.id.nav_match_result) {
@@ -178,13 +179,16 @@ public class LandingActivity extends BaseActivity
         } else if (id == R.id.nav_point_table) {
 
         } else if (id == R.id.nav_statistics) {
-
+            intent = new Intent(LandingActivity.this, NewFeedsActivity.class);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_rate_this_app) {
 
         }
 
+        if (intent != null) {
+            startActivity(intent);
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

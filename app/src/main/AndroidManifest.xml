@@ -28,6 +28,12 @@
         <activity
             android:name=".activity.TeamDetailsActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.NewFeedsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.NewsFeedDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>
