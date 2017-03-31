@@ -180,7 +180,10 @@ public class LandingActivity extends BaseActivity
 
         } else if (id == R.id.nav_statistics) {
             intent = new Intent(LandingActivity.this, NewFeedsActivity.class);
+
         } else if (id == R.id.nav_share) {
+
+            shareAppLink();
 
         } else if (id == R.id.nav_rate_this_app) {
 
@@ -238,5 +241,17 @@ public class LandingActivity extends BaseActivity
 
             }
         });
+    }
+
+    private void shareAppLink() {
+        int applicationNameId = getApplicationInfo().labelRes;
+        final String appPackageName = getPackageName();
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("text/plain");
+        i.putExtra(Intent.EXTRA_SUBJECT, getString(applicationNameId));
+        String text = getString(R.string.app_share_message);
+        String link = "https://play.google.com/store/apps/details?id=" + appPackageName;
+        i.putExtra(Intent.EXTRA_TEXT, text + " " + link);
+        startActivity(Intent.createChooser(i, "Share link:"));
     }
 }
