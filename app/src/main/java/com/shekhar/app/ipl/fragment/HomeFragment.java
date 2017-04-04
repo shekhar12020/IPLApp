@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.net.ParseException;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
@@ -77,6 +78,13 @@ public class HomeFragment extends BaseFragment implements GoogleApiClient.OnConn
 
     private static final int RC_SIGN_IN = 9001;
 
+    private Handler handler;
+    private Runnable runnable;
+
+    private TextView daysRemaining;
+    private TextView matchDate;
+    private TextView countdown;
+
     private String finalUrl = "http://www.espncricinfo.com/rss/content/story/feeds/1078425.xml";
 
     @Override
@@ -104,6 +112,7 @@ public class HomeFragment extends BaseFragment implements GoogleApiClient.OnConn
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         bindViews();
 
         mAuth = FirebaseAuth.getInstance();
@@ -120,6 +129,8 @@ public class HomeFragment extends BaseFragment implements GoogleApiClient.OnConn
                 updateUI(user);
             }
         };
+
+        countDownStart();
 
         new DownloadNewsTask().execute(finalUrl);
     }
@@ -163,8 +174,9 @@ public class HomeFragment extends BaseFragment implements GoogleApiClient.OnConn
         status = (TextView) rootView.findViewById(R.id.status);
         newsLabelCard = (CardView) rootView.findViewById(R.id.newsLabelCard);
 
-        TextView daysRemaining = (TextView) rootView.findViewById(R.id.daysRemaining);
-        daysRemaining.setText(daysRemaining(dateFormat("April 5, 2017")) + " Days Remaining");
+        daysRemaining = (TextView) rootView.findViewById(R.id.daysRemaining);
+        countdown = (TextView) rootView.findViewById(R.id.countdown);
+        matchDate = (TextView) rootView.findViewById(R.id.matchDate);
 
         btnGoogleSignIn = (SignInButton) rootView.findViewById(R.id.btnGoogleSignIn);
         newsFeedList = (RecyclerView) rootView.findViewById(R.id.newsFeedList);
@@ -360,6 +372,47 @@ public class HomeFragment extends BaseFragment implements GoogleApiClient.OnConn
         String formattedDate = df.format(c.getTime());
 
         return formattedDate;
+    }
+
+    public void countDownStart() {
+        handler = new Handler();
+        runnable = new Runnable() {
+            public void run() {
+                handler.postDelayed(this, 1000L);
+                try {
+                    Date localDate1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse("2017-04-05 20:00:00");
+                    Date localDate2 = new Date();
+                    if (!localDate2.after(localDate1)) {
+                        long l2 = localDate1.getTime() - localDate2.getTime();
+                        long l1 = l2 / 86400000L;
+                        long l3 = l2 - 86400000L * l1;
+                        l2 = l3 / 3600000L;
+                        long l4 = l3 - 3600000L * l2;
+                        l3 = l4 / 60000L;
+                        l4 = (l4 - 60000L * l3) / 1000L;
+                        DebugLog.d("aaa : " + String.format("%02d", new Object[]{Long.valueOf(l1)}));
+                        DebugLog.d("bbb : " + String.format("%02d", new Object[]{Long.valueOf(l2)}));
+                        DebugLog.d("ccc : " + String.format("%02d", new Object[]{Long.valueOf(l3)}));
+                        DebugLog.d("ddd : " + String.format("%02d", new Object[]{Long.valueOf(l4)}));
+
+                        daysRemaining.setText(String.format("%02d", new Object[]{Long.valueOf(l1)}) + " Days Remaining");
+
+                        matchDate.setText("April 5, 2017 08:00 PM");
+
+                        countdown.setText(String.format("%02d", new Object[]{Long.valueOf(l2)})
+                                + " : " + String.format("%02d", new Object[]{Long.valueOf(l3)})
+                                + " : " + String.format("%02d", new Object[]{Long.valueOf(l4)}));
+
+                        return;
+                    }
+                    handler.removeCallbacks(HomeFragment.this.runnable);
+                    return;
+                } catch (Exception localException) {
+                    localException.printStackTrace();
+                }
+            }
+        };
+        this.handler.postDelayed(this.runnable, 0L);
     }
 
 }
