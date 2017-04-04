@@ -75,6 +75,11 @@ public class TeamListFragment extends BaseFragment {
                         team.setHome_ground(jsonObject.get("home_ground").toString());
                         team.setImage_url(jsonObject.get("image_url").toString());
 
+                        team.setTotalMatch(jsonObject.get("total_match").toString());
+                        team.setWonMatch(jsonObject.get("won_match").toString());
+                        team.setFailedMatch(jsonObject.get("failed_match").toString());
+                        team.setDrawMatch(jsonObject.get("draw_match").toString());
+
 //                        Type listType = new TypeToken<ArrayList<String>>() {}.getType();
 //                        ArrayList<String> memberList = new Gson().fromJson(jsonObject.get("team_members").toString(), listType);
 //                        team.setTeam_members(memberList);

@@ -21,12 +21,17 @@ public class TeamProfileFragment extends BaseFragment {
 
     private View rootView;
     private RelativeLayout parentLayout;
-    public TextView teamName;
-    public TextView teamOwner;
-    public TextView teamCaptain;
-    public TextView teamCoach;
-    public TextView extra;
-    public ImageView teamPhoto;
+    private TextView teamName;
+    private TextView teamOwner;
+    private TextView teamCaptain;
+    private TextView teamCoach;
+    private TextView extra;
+    private ImageView teamPhoto;
+
+    private TextView totalMatch;
+    private TextView wonMatch;
+    private TextView lostMatch;
+    private TextView drawMatch;
 
     private Team team;
 
@@ -67,6 +72,11 @@ public class TeamProfileFragment extends BaseFragment {
         teamCoach = (TextView) rootView.findViewById(R.id.teamCoach);
         extra = (TextView) rootView.findViewById(R.id.extra);
         teamPhoto = (ImageView) rootView.findViewById(R.id.teamPhoto);
+
+        totalMatch = (TextView) rootView.findViewById(R.id.totalMatch);
+        wonMatch = (TextView) rootView.findViewById(R.id.wonMatch);
+        lostMatch = (TextView) rootView.findViewById(R.id.lostMatch);
+        drawMatch = (TextView) rootView.findViewById(R.id.drawMatch);
     }
 
     private void setTeamProfileData(Team team) {
@@ -76,6 +86,11 @@ public class TeamProfileFragment extends BaseFragment {
         teamCaptain.setText(team.getCaptain());
         teamCoach.setText(team.getCoach());
         extra.setText(team.getHome_ground());
+
+        totalMatch.setText(team.getTotalMatch());
+        wonMatch.setText(team.getWonMatch());
+        lostMatch.setText(team.getFailedMatch());
+        drawMatch.setText(team.getDrawMatch());
 
         if (!team.getImage_url().equalsIgnoreCase("")) {
             Picasso.with(getActivity())

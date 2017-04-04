@@ -91,6 +91,8 @@ public class TeamMatchListFragment extends BaseFragment {
                         e.printStackTrace();
                     }
                 }
+                DebugLog.d("TOTAL MATCH : " + scheduledMatches.size());
+
                 LinearLayoutManager llm = new LinearLayoutManager(getContext());
                 matchScheduleList.setLayoutManager(llm);
                 matchScheduleList.setAdapter(new TeamMatchListAdapter(getActivity(), scheduledMatches));

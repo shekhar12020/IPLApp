@@ -19,8 +19,16 @@ public class Team implements Parcelable {
     private String coach;
     private String home_ground;
 
+    private String totalMatch;
+    private String wonMatch;
+    private String failedMatch;
+    private String drawMatch;
 
-    public Team(Parcel in) {
+    public Team() {
+
+    }
+
+    protected Team(Parcel in) {
         team_id = in.readString();
         team_name = in.readString();
         short_name = in.readString();
@@ -29,10 +37,10 @@ public class Team implements Parcelable {
         captain = in.readString();
         coach = in.readString();
         home_ground = in.readString();
-    }
-
-    public Team() {
-
+        totalMatch = in.readString();
+        wonMatch = in.readString();
+        failedMatch = in.readString();
+        drawMatch = in.readString();
     }
 
     @Override
@@ -45,6 +53,10 @@ public class Team implements Parcelable {
         dest.writeString(captain);
         dest.writeString(coach);
         dest.writeString(home_ground);
+        dest.writeString(totalMatch);
+        dest.writeString(wonMatch);
+        dest.writeString(failedMatch);
+        dest.writeString(drawMatch);
     }
 
     @Override
@@ -63,6 +75,38 @@ public class Team implements Parcelable {
             return new Team[size];
         }
     };
+
+    public String getTotalMatch() {
+        return totalMatch;
+    }
+
+    public void setTotalMatch(String totalMatch) {
+        this.totalMatch = totalMatch;
+    }
+
+    public String getWonMatch() {
+        return wonMatch;
+    }
+
+    public void setWonMatch(String wonMatch) {
+        this.wonMatch = wonMatch;
+    }
+
+    public String getFailedMatch() {
+        return failedMatch;
+    }
+
+    public void setFailedMatch(String failedMatch) {
+        this.failedMatch = failedMatch;
+    }
+
+    public String getDrawMatch() {
+        return drawMatch;
+    }
+
+    public void setDrawMatch(String drawMatch) {
+        this.drawMatch = drawMatch;
+    }
 
     public String getTeam_id() {
         return team_id;
