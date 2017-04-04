@@ -175,6 +175,7 @@ public class LandingActivity extends BaseActivity
         if (id == R.id.nav_match_result) {
 
         } else if (id == R.id.nav_team) {
+            viewPager.setCurrentItem(2);
 
         } else if (id == R.id.nav_point_table) {
 

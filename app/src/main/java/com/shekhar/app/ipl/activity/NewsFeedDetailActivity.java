@@ -24,6 +24,8 @@ public class NewsFeedDetailActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        getSupportActionBar().setTitle("IPL Updates");
+
         if (getIntent().getExtras() != null) {
             url = getIntent().getStringExtra("url");
         }
